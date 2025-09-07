@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>算命学ベータ版クイズ</title>
+  <meta name="description" content="算命学の基礎クイズ（ベータ）。40問からランダムに10問を出題。" />
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <!-- 自作CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-light" href="/">算命学検定（ベータ版）</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-label="メニューを開く">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="navOffcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasLabel">メニュー</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="閉じる"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto gap-3">
+            <li class="nav-item"><a class="nav-link text-light" href="/">ホーム</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/quiz.html" aria-current="page">受験</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 注意ページ -->
+  <section class="py-4" id="noticeSection">
+    <div class="container">
+      <div class="card p-4">
+        <h2 class="h4 mb-3 text-contrast">受験上の注意</h2>
+        <ul class="mb-3 text-contrast">
+          <li>全問4択。40問からランダムに10問を出題します。</li>
+          <li>採点後に「自分の解答・正解・解説」が表示されます。</li>
+        </ul>
+        <button id="toQuizBtn" class="btn btn-primary">受験へ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz Section -->
+  <section class="pb-5 d-none" id="quizSection">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+          <div class="card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <span class="muted small">問題</span>
+                <span class="h5 mb-0" id="progressLabel">1 / 10</span>
+              </div>
+              <div class="text-end">
+                <span class="small muted">スコア</span>
+                <div class="h5 mb-0" id="scoreLabel">0 点</div>
+              </div>
+            </div>
+
+            <div class="progress mb-3" role="progressbar" aria-label="進捗">
+              <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+
+            <h2 class="h5 text-question" id="questionText">読み込み中...</h2>
+            <div id="choices" class="list-group my-3"></div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <button id="prevBtn" class="btn btn-outline-light" disabled>戻る</button>
+              <div class="d-flex gap-2">
+                <button id="resetBtn" class="btn btn-outline-light">最初から</button>
+                <button id="nextBtn" class="btn btn-primary">次へ</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 結果 -->
+          <div class="card p-4 mt-4 d-none" id="resultCard">
+            <h3 class="h4 mb-2 text-contrast">結果</h3>
+            <p class="muted mb-2">あなたのスコア：<span class="h5" id="finalScore">0</span> / <span id="totalQuestions">10</span></p>
+            <p class="mb-3 text-contrast" id="gradeText">判定：-</p>
+
+            <details class="mt-2">
+              <summary class="text-contrast">自分の解答・正解・解説を見る</summary>
+              <div id="reviewArea" class="mt-3"></div>
+            </details>
+
+            <div class="border-top pt-3 mt-3">
+              <h4 class="h5 mb-2 text-contrast">本番公開のお知らせを受け取る</h4>
+              <form id="subForm" class="row g-2" novalidate>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="subEmail" placeholder="you@example.com" required />
+                </div>
+                <div class="col-sm-4 d-grid">
+                  <button type="submit" class="btn btn-primary" id="subBtn">メール登録</button>
+                </div>
+                <div class="col-12">
+                  <small id="subMsg" class="text-muted"></small>
+                </div>
+              </form>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              <a id="shareTwitter" target="_blank" rel="noopener" class="btn btn-outline-light">X(Twitter)で共有</a>
+              <button id="copyLink" class="btn btn-outline-light">結果リンクをコピー</button>
+              <button id="retryBtn" class="btn btn-primary">もう一度受験</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- スクリプト（自作→Bootstrapの順でOK） -->
+  <script src="quiz.js"></script>
+  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

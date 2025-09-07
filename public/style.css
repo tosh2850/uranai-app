@@ -1,0 +1,148 @@
+/* 基本配色 */
+body { background: #0b1020; color: #e9eefb; }
+a { color: #d6dcff; }
+a:hover { color: #ffffff; }
+
+/* ナビ & オフキャンバス */
+.navbar, .offcanvas { background: #0f1530; }
+.navbar .navbar-brand, .navbar .nav-link { color: #e9eefb; }
+.navbar .nav-link:hover { color: #ffffff; }
+.navbar .navbar-toggler { border-color: rgba(255,255,255,.25); }
+.navbar .navbar-toggler-icon { filter: invert(1) brightness(1.2); }
+
+/* カード */
+.card { background: #121938; border: 1px solid rgba(255,255,255,.08); }
+
+/* ボタン */
+.btn-primary { background: #6c7bff; border: none; }
+.btn-primary:hover, .btn-primary:focus { background: #5a6af5; }
+.btn-outline-light { border-color: rgba(255,255,255,.25); color: #e9eefb; }
+.btn-outline-light:hover, .btn-outline-light:focus { background: rgba(255,255,255,.1); color: #fff; }
+
+/* テキスト色 */
+.accent { color:#8be9fd; }
+.muted { color: #b8c1ec; }
+.text-question { color:#ffffff; }
+.text-contrast { color:#ffffff; }       /* 結果見出し・summary など白で確実に見える */
+
+/* 進捗バー */
+.progress { background: rgba(255,255,255,.08); }
+.progress-bar { background: #6c7bff; }
+
+/* リスト（選択肢） */
+.choice:hover { background: rgba(255,255,255,.06); }
+.list-group-item { background: transparent; color: #e9eefb; border-color: rgba(255,255,255,.08); }
+.list-group-item.active {
+  background: linear-gradient(90deg, rgba(108,123,255,.25), rgba(108,123,255,.15));
+  color: #fff; border-color: rgba(108,123,255,.6);
+}
+
+/* フォーム */
+.form-control, .form-select { background: #0f1530; color: #e9eefb; border-color: rgba(255,255,255,.18); }
+.form-control::placeholder { color: #a8b0d8; }
+.form-control:focus, .form-select:focus {
+  background: #0f1530; color: #fff; border-color: #6c7bff;
+  box-shadow: 0 0 0 .2rem rgba(108,123,255,.25);
+}
+
+/* メール登録メッセージ（見やすい色） */
+#subMsg { display:inline-block; margin-top:.25rem; }
+#subMsg.text-success { color:#78e08f !important; }
+#subMsg.text-warning { color:#ffd166 !important; }
+#subMsg.text-danger  { color:#ff6b6b !important; }
+
+/* ===== Hero (トップ見出し) ===== */
+.hero {
+  position: relative;
+  /* 画像パスは好きなものに変更（例: /img/hero.jpg） */
+  background: url("/img/hero.jpg") center / cover no-repeat;
+  min-height: 60vh;             /* 画面の6割くらいの高さ */
+  display: flex;
+  align-items: center;          /* 垂直中央 */
+  isolation: isolate;           /* オーバーレイ用 */
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* うっすら暗くして文字を読みやすく（濃すぎたら0.5→0.35などに） */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* 中身はオーバーレイの上に */
+.hero .hero-body {
+  position: relative;
+  z-index: 1;
+}
+
+/* 背景上でも読みやすい白寄りの色 */
+.hero h1 {
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+
+.hero .lead {
+  color: #e9eefb;
+}
+
+/* ボタンの視認性微調整（任意） */
+.hero .btn.btn-outline-light:hover,
+.hero .btn.btn-outline-light:focus {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+}
+
+/* モバイルで余白広めに */
+@media (max-width: 576px) {
+  .hero { min-height: 70vh; }
+  .hero h1 { font-size: 1.9rem; }
+  .hero .lead { font-size: 1.05rem; }
+}
+
+/* === About（検定の紹介）を読みやすく === */
+.about-section { 
+  /* 画像なしなので透明のままでOK */
+  background: transparent;
+}
+
+.about-section .card {
+  /* 既存 .card より少しだけ濃いめ＆半透明で読みやすく */
+  background: rgba(18, 25, 56, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* 見出しは確実に白で */
+.text-contrast { color: #ffffff !important; }
+
+
+.muted { color: #ffffff; }
+
+
+/* === Aboutセクション内のリスト文字を白に === */
+.about-section ul li {
+  color: #ffffff;
+}
+
+/* ====== 結果レビューの表示強調 ====== */
+.review-correct {
+  color: #78e08f !important;   /* 緑系で視認性UP */
+  font-weight: bold;
+}
+
+.review-wrong {
+  color: #ff6b6b !important;   /* 赤系で視認性UP */
+  font-weight: bold;
+}
+
+.review-answer {
+  color: #ffffff !important;   /* 正解の行を白で確実に表示 */
+}
+
+/* 結果レビューの問題文をはっきり表示 */
+.review-question {
+  color: #ffffff !important;       /* 白で背景とコントラストを確保 */
+  font-weight: 600;                /* 少し強調 */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6); /* うっすら影でさらに見やすく */
+}
