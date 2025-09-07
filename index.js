@@ -10,20 +10,15 @@ const { Pool } = require('pg');
 const app = express();
 
 /* ====== 基本設定 ====== */
-// Render/プロキシ下でHTTPS検知・X-Forwarded-*を信頼
-app.enable('trust proxy');
-
-// JSONボディは小さめに（不要な重いPOST対策）
-app.use(express.json({ limit: '20kb' }));
-
-// 圧縮
+app.disable('x-powered-by');     // 余計なヘッダを隠す
+app.enable('trust proxy');       // Render/プロキシ下でHTTPS検知・クライアントIP取得
+app.use(express.json({ limit: '20kb' })); // 不要な大きいPOSTを避ける
 app.use(compression());
 
-// アクセスログ（本番は combined 推奨）
+// アクセスログ
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 /* ====== セキュリティヘッダー ====== */
-// Bootstrap CDN / jsDelivr を使う前提のCSP
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -36,20 +31,22 @@ app.use(
         ],
         "style-src": [
           "'self'",
-          "'unsafe-inline'", // Bootstrapはインラインstyleを使うケースあり
+          "'unsafe-inline'",          // 一部のUIで必要になることがある
           "https://cdn.jsdelivr.net", // Bootstrap CSS
         ],
         "img-src": ["'self'", "data:"],
         "font-src": ["'self'", "https://cdn.jsdelivr.net"],
-        "connect-src": ["'self'"], // APIは同一オリジンに限定
-        "frame-ancestors": ["'none'"],
+        "connect-src": ["'self'"],    // 同一オリジンのAPIのみ
+        "frame-ancestors": ["'none'"]
       },
     },
-    crossOriginEmbedderPolicy: false, // 必要に応じて
+    crossOriginEmbedderPolicy: false,
   })
 );
+// 参考: 参照ポリシー（任意だが付けると安心）
+app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
 
-// HTTP → HTTPS リダイレクト（ローカルは除外）
+/* ====== HTTP→HTTPS リダイレクト（ローカル除外） ====== */
 app.use((req, res, next) => {
   const isLocal = req.hostname === 'localhost' || req.hostname === '127.0.0.1';
   if (!isLocal && req.protocol !== 'https') {
@@ -62,31 +59,33 @@ app.use((req, res, next) => {
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
-  user: process.env.DB_USER,     // Supabase Pooler: app_user.<projectref> 形式 or postgres.<projectref>
+  user: process.env.DB_USER,      // Supabase pooler: app_user.<projectref> 形式
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME, // 通常 postgres
+  database: process.env.DB_NAME,  // 通常 postgres
   ssl: { rejectUnauthorized: false },
 });
 
-// 起動時チェック
+// 起動時に接続確認
 pool.query('SELECT 1')
   .then(() => console.log('✅ DB connected'))
   .catch(err => console.error('❌ DB connect failed:', err));
 
 /* ====== 静的ファイル ====== */
+// HTMLは no-store、JS/CSS/画像は長期キャッシュ
 app.use(express.static(path.join(__dirname, 'public'), {
-  setHeaders: (res, p) => {
-    // 画像・CSS・JSに軽いキャッシュ
-    if (/\.(js|css|png|jpg|jpeg|gif|svg|ico)$/.test(p)) {
+  setHeaders: (res, filePath) => {
+    if (/\.(html?)$/.test(filePath)) {
+      res.setHeader('Cache-Control', 'no-store');
+    } else if (/\.(js|css|png|jpg|jpeg|gif|svg|ico|webp|woff2?)$/.test(filePath)) {
       res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     }
   }
 }));
 
-/* ====== レート制限（/subscribe向けに絞る） ====== */
+/* ====== レート制限（/subscribe向け） ====== */
 const subscribeLimiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10分
-  max: 30,                   // 10分で30回まで
+  max: 30,                   // 10分に30回まで
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Too many requests. Please try again later.' }
@@ -129,7 +128,6 @@ app.post('/subscribe', subscribeLimiter, async (req, res) => {
     await pool.query('INSERT INTO subscribers (email) VALUES ($1)', [trimmed]);
     return res.json({ ok: true });
   } catch (err) {
-    // 一意制約違反（重複）
     if (err && err.code === '23505') {
       return res.status(409).json({ error: 'duplicate email' });
     }
@@ -138,18 +136,18 @@ app.post('/subscribe', subscribeLimiter, async (req, res) => {
   }
 });
 
-// 登録一覧（必要ならベーシック認証等で保護を）
-app.get('/subscribers', async (_req, res) => {
-  try {
-    const { rows } = await pool.query(
-      'SELECT id, email, created_at FROM subscribers ORDER BY id DESC LIMIT 500'
-    );
-    res.json(rows);
-  } catch (err) {
-    console.error('list error:', err);
-    res.status(500).json({ error: 'Database error' });
-  }
-});
+// ★必要なら管理用の一覧エンドポイント（本番はコメントアウトや保護推奨）
+// app.get('/subscribers', async (_req, res) => {
+//   try {
+//     const { rows } = await pool.query(
+//       'SELECT id, email, created_at FROM subscribers ORDER BY id DESC LIMIT 500'
+//     );
+//     res.json(rows);
+//   } catch (err) {
+//     console.error('list error:', err);
+//     res.status(500).json({ error: 'Database error' });
+//   }
+// });
 
 /* ====== 404 / エラーハンドリング ====== */
 app.use((_req, res) => res.status(404).json({ error: 'Not Found' }));
@@ -159,13 +157,21 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
-// 未処理エラーも捕捉して落ちないように
+// 未処理エラーも捕捉
 process.on('unhandledRejection', (reason) => {
   console.error('unhandledRejection:', reason);
 });
 process.on('uncaughtException', (err) => {
   console.error('uncaughtException:', err);
 });
+
+// Graceful shutdown
+const shutdown = (signal) => {
+  console.log(`\n${signal} received. Closing server...`);
+  pool.end().catch(() => {}).finally(() => process.exit(0));
+};
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
 
 /* ====== 起動 ====== */
 const PORT = process.env.PORT || 3000;
