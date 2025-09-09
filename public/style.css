@@ -146,3 +146,17 @@ a:hover { color: #ffffff; }
   font-weight: 600;                /* 少し強調 */
   text-shadow: 0 1px 3px rgba(0,0,0,0.6); /* うっすら影でさらに見やすく */
 }
+
+/* 記事本文の可読性 */
+.prose {
+  line-height: 1.9;
+  color: #e9eefb;
+}
+.prose h1, .prose h2, .prose h3 {
+  color: #ffffff;
+  margin-top: 1.5rem;
+}
+.prose a { color: #d6dcff; }
+.prose a:hover { color: #fff; }
+.breadcrumb .link-muted { color: #a8b0d8; }
+.breadcrumb .link-muted:hover { color: #d6dcff; }
