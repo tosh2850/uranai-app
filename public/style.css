@@ -106,8 +106,8 @@ a:hover { color: #ffffff; }
 .breadcrumb .link-muted:hover { color: #d6dcff; }
 
 /* === 記事ページ用（白基調エリアのみ） === */
-/* ページ全体の背景は変えない（左右・ヘッダー・フッターはダークのまま） */
-body.article-page { /* intentionally no background override */ }
+/* === 記事ページ用（白基調エリアのみ） === */
+/* ページ全体の背景は変えず（= ダークのまま）、白化は記事本文ボックスに限定 */
 
 /* 記事本文ボックスだけ白化（左右はダークのまま残る） */
 body.article-page .prose {
@@ -146,7 +146,6 @@ body.article-page .prose .card {
   color: #000000 !important;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-
 /* === 記事一覧カードを白基調に（一覧ページのカードだけ） === */
 .articles-list .card {
   background: #ffffff !important;
