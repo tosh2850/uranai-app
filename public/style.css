@@ -116,9 +116,7 @@ a:hover { color: #ffffff; }
 /* 見出しは確実に白で */
 .text-contrast { color: #ffffff !important; }
 
-
 .muted { color: #ffffff; }
-
 
 /* === Aboutセクション内のリスト文字を白に === */
 .about-section ul li {
@@ -160,3 +158,61 @@ a:hover { color: #ffffff; }
 .prose a:hover { color: #fff; }
 .breadcrumb .link-muted { color: #a8b0d8; }
 .breadcrumb .link-muted:hover { color: #d6dcff; }
+
+/* === 記事ページ用（白基調テーマ） === */
+body.article-page {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* 本文 */
+body.article-page .prose {
+  color: #333333;
+  line-height: 1.9;
+}
+
+body.article-page .prose h1,
+body.article-page .prose h2,
+body.article-page .prose h3 {
+  color: #111111;
+  margin-top: 1.5rem;
+}
+
+body.article-page .prose a {
+  color: #0066cc;
+}
+body.article-page .prose a:hover {
+  color: #004080;
+}
+
+/* 補助テキスト */
+body.article-page .muted {
+  color: #666666;
+}
+
+/* パンくずリンク */
+body.article-page .breadcrumb .link-muted {
+  color: #999999;
+}
+body.article-page .breadcrumb .link-muted:hover {
+  color: #333333;
+}
+
+/* カード（記事一覧や記事内のカード） */
+body.article-page .card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  color: #000000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* === 記事一覧カードを白基調に（背景は現状のまま） === */
+.articles-list .card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  color: #000000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.articles-list .card-title { color: #111111; }
+.articles-list .card-text  { color: #333333; }
+.articles-list .card .muted { color: #666666; }
