@@ -1,12 +1,12 @@
-/* 基本配色 */
-body { background: #0b1020; color: #e9eefb; }
+/* 基本配色（Bootstrap の body 白を確実に打ち消す） */
+body { background: #0b1020 !important; color: #e9eefb; }
 a { color: #d6dcff; }
 a:hover { color: #ffffff; }
 
 /* ナビ & オフキャンバス（常にダークを維持） */
-.navbar, .offcanvas { background: #0f1530; }
-.navbar .navbar-brand, .navbar .nav-link { color: #e9eefb; }
-.navbar .nav-link:hover { color: #ffffff; }
+.navbar, .offcanvas { background: #0f1530 !important; }
+.navbar .navbar-brand, .navbar .nav-link { color: #e9eefb !important; }
+.navbar .nav-link:hover { color: #ffffff !important; }
 .navbar .navbar-toggler { border-color: rgba(255,255,255,.25); }
 .navbar .navbar-toggler-icon { filter: invert(1) brightness(1.2); }
 
@@ -23,7 +23,7 @@ a:hover { color: #ffffff; }
 .accent { color:#8be9fd; }
 .muted { color: #b8c1ec; }
 .text-question { color:#ffffff; }
-.text-contrast { color:#ffffff; }       /* 結果見出し・summary など白で確実に見える */
+.text-contrast { color:#ffffff; }
 
 /* 進捗バー */
 .progress { background: rgba(255,255,255,.08); }
@@ -45,13 +45,13 @@ a:hover { color: #ffffff; }
   box-shadow: 0 0 0 .2rem rgba(108,123,255,.25);
 }
 
-/* メール登録メッセージ（見やすい色） */
+/* メール登録メッセージ */
 #subMsg { display:inline-block; margin-top:.25rem; }
 #subMsg.text-success { color:#78e08f !important; }
 #subMsg.text-warning { color:#ffd166 !important; }
 #subMsg.text-danger  { color:#ff6b6b !important; }
 
-/* ===== Hero (トップ見出し) ===== */
+/* ===== Hero ===== */
 .hero {
   position: relative;
   background: url("/img/hero.jpg") center / cover no-repeat;
@@ -60,44 +60,32 @@ a:hover { color: #ffffff; }
   align-items: center;
   isolation: isolate;
 }
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-}
+.hero::before { content:""; position:absolute; inset:0; background: rgba(0,0,0,0.5); z-index:0; }
 .hero .hero-body { position: relative; z-index: 1; }
 .hero h1 { color: #ffffff; text-shadow: 0 2px 8px rgba(0,0,0,.35); }
 .hero .lead { color: #e9eefb; }
-.hero .btn.btn-outline-light:hover,
-.hero .btn.btn-outline-light:focus { background: rgba(255,255,255,.15); color: #fff; }
+.hero .btn.btn-outline-light:hover, .hero .btn.btn-outline-light:focus {
+  background: rgba(255,255,255,.15); color: #fff;
+}
 @media (max-width: 576px) {
   .hero { min-height: 70vh; }
   .hero h1 { font-size: 1.9rem; }
   .hero .lead { font-size: 1.05rem; }
 }
 
-/* === About（検定の紹介）を読みやすく（ダークのまま） === */
+/* === About（ダークのまま） === */
 .about-section { background: transparent; }
-.about-section .card {
-  background: rgba(18, 25, 56, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
+.about-section .card { background: rgba(18,25,56,0.95); border: 1px solid rgba(255,255,255,0.12); }
 .text-contrast { color: #ffffff !important; }
 .about-section ul li { color: #ffffff; }
 
-/* ====== 結果レビュー（ダーク時） ====== */
-.review-correct { color: #78e08f !important; font-weight: bold; }
-.review-wrong { color: #ff6b6b !important; font-weight: bold; }
-.review-answer { color: #ffffff !important; }
-.review-question {
-  color: #ffffff !important;
-  font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-}
+/* ====== 結果レビュー（ダーク） ====== */
+.review-correct { color: #78e08f !important; font-weight: 700; }
+.review-wrong   { color: #ff6b6b !important; font-weight: 700; }
+.review-answer  { color: #ffffff !important; }
+.review-question{ color: #ffffff !important; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
 
-/* ===== 記事本文（ダーク時の既定） ===== */
+/* ===== ダーク時既定の本文 ===== */
 .prose { line-height: 1.9; color: #e9eefb; }
 .prose h1, .prose h2, .prose h3 { color: #ffffff; margin-top: 1.5rem; }
 .prose a { color: #d6dcff; }
@@ -105,14 +93,11 @@ a:hover { color: #ffffff; }
 .breadcrumb .link-muted { color: #a8b0d8; }
 .breadcrumb .link-muted:hover { color: #d6dcff; }
 
-/* === 記事ページ用（白基調エリアのみ） === */
-/* === 記事ページ用（白基調エリアのみ） === */
-/* ページ全体の背景は変えず（= ダークのまま）、白化は記事本文ボックスに限定 */
-
-/* 記事本文ボックスだけ白化（左右はダークのまま残る） */
+/* === 記事ページ用（本文ボックスだけ白） === */
+/* ページ全体はダークのまま。白くするのは .prose のみ */
 body.article-page .prose {
-  color: #333333 !important;
   background: #ffffff !important;
+  color: #333333 !important;
   padding: 1.25rem;
   border-radius: 0.75rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -120,39 +105,73 @@ body.article-page .prose {
 body.article-page .prose h1,
 body.article-page .prose h2,
 body.article-page .prose h3 { color: #111111 !important; }
-body.article-page .prose a { color: #0066cc; }
-body.article-page .prose a:hover { color: #004080; }
-
-/* 記事本文内の補助テキストのみグレー化（外部の .muted は既存のまま） */
+body.article-page .prose a { color: #0066cc !important; }
+body.article-page .prose a:hover { color: #004080 !important; }
 body.article-page .prose .muted { color: #666666 !important; }
 
-/* 記事本文内の表も白基調に統一 */
+/* 表（本文内だけ白） */
 body.article-page .prose table,
-body.article-page .prose .table {
-  background: #ffffff !important;
-  color: #000000 !important;
-}
+body.article-page .prose .table { background:#ffffff !important; color:#000000 !important; }
 body.article-page .prose th,
-body.article-page .prose td {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border: 1px solid #ddd !important;
+body.article-page .prose td { background:#ffffff !important; color:#000000 !important; border:1px solid #ddd !important; }
+
+/* 本文内のカード（白） */
+body.article-page .prose .card {
+  background:#ffffff !important; border:1px solid #ddd !important; color:#000000 !important;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
-/* 記事ページ内のカード（本文内で使う場合のみ白） */
-body.article-page .prose .card {
-  background: #ffffff !important;
-  border: 1px solid #ddd !important;
-  color: #000000 !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-/* === 記事一覧カードを白基調に（一覧ページのカードだけ） === */
+/* === 記事一覧：カードだけ白 & 黒文字 === */
 .articles-list .card {
-  background: #ffffff !important;
-  border: 1px solid #ddd !important;
-  color: #000000 !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background:#ffffff !important; border:1px solid #ddd !important; color:#000000 !important;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
-.articles-list .card-title { color: #111111 !important; }
-.articles-list .card-text  { color: #333333 !important; }
-.articles-list .card .muted { color: #666666 !important; }
+.articles-list .card-title { color:#111111 !important; }
+.articles-list .card-text  { color:#333333 !important; }
+.articles-list .card .muted { color:#666666 !important; }
+
+/* === Navbar: activeリンクの視認性改善（ダーク背景でもくっきり） === */
+.navbar .nav-link {
+  position: relative;
+}
+
+/* アクティブ時は白文字＋下線バーを表示、背景色は付けない */
+.navbar .nav-link.active,
+.navbar .nav-link[aria-current="page"],
+.navbar .nav-link.active:hover,
+.navbar .nav-link.active:focus {
+  color: #ffffff !important;
+  background: transparent !important;
+  text-decoration: none;
+}
+
+/* 下線のアクセント（6c7bff） */
+.navbar .nav-link.active::after,
+.navbar .nav-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: .5rem;
+  right: .5rem;
+  bottom: .25rem;
+  height: 2px;
+  background: #6c7bff;
+  border-radius: 2px;
+  opacity: 0.95;
+}
+
+/* Offcanvas 内でも同じ見た目を確保 */
+.offcanvas .nav-link.active,
+.offcanvas .nav-link[aria-current="page"] {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+.offcanvas .nav-link.active::after,
+.offcanvas .nav-link[aria-current="page"]::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin: .25rem .5rem 0;
+  background: #6c7bff;
+  border-radius: 2px;
+  opacity: 0.95;
+}
