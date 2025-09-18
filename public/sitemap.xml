@@ -22,9 +22,16 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- 記事ページ（例：算命学とは？） -->
+  <!-- 記事ページ（算命学とは？） -->
   <url>
     <loc>https://uranai-kentei.com/articles/what-is-suanmeigaku.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 記事ページ（基本の仕組み） -->
+  <url>
+    <loc>https://uranai-kentei.com/articles/suanmeigaku-basics.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
