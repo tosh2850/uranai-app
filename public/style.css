@@ -330,3 +330,61 @@ body.article-page .breadcrumb {
 }
 
 /* 既存：記事一覧(.articles-list)やヘッダー/左右余白はダークを維持するので触らない */
+
+/* ===== 読みやすさ向上パッチ（追記） ===== */
+
+/* Hero：背景をもう少し暗くして文字をくっきり */
+.hero::before { background: rgba(0,0,0,0.68) !important; }
+.hero h1,
+.hero .lead { text-shadow: 0 3px 12px rgba(0,0,0,.5) !important; }
+
+/* カード内テキストのコントラストを底上げ */
+.card { color: #eef2ff !important; }       /* 見出し/本文の基準色 */
+.card p, .card li, .card .muted { color: #dbe2ff !important; }
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 { color: #ffffff !important; }
+
+/* カード内リンク（ボタン以外）だけに適用 */
+.card a:not(.btn) {
+  color: #bfc6ff !important;
+  text-decoration-color: rgba(191,198,255,.5);
+}
+.card a:not(.btn):hover {
+  color: #ffffff !important;
+  text-decoration-color: rgba(255,255,255,.9);
+}
+
+/* アウトライン系ボタンの視認性（暗背景で沈む問題に対応） */
+.btn-outline-secondary {
+  border-color: #b7bfff !important;
+  color: #e9eefb !important;
+}
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+  background: rgba(183,191,255,.15) !important;
+  color: #ffffff !important;
+  border-color: #c3caff !important;
+}
+
+/* バッジの数字が背景に沈む場合の補正（おすすめセクション） */
+.badge.bg-primary {
+  background: #6c7bff !important;    /* 既存主色 */
+  color: #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
+}
+
+/* リスト項目（暗カード上の箇条書き）を読みやすく */
+.about-section ul li { color: #eef2ff !important; }
+
+/* フッター：リンクが薄い場合はやや明るく */
+.site-footer__links a { color: #9aa3c9 !important; }
+.site-footer__links a:hover { color: #cbd3ff !important; }
+
+/* 入力フォームのプレースホルダーをもう少し明るく */
+.form-control::placeholder { color: #c3c9ee !important; }
+
+/* スモール画面でも文字が潰れないように少しだけサイズ底上げ（任意） */
+@media (max-width: 576px) {
+  body { font-size: 17px; }
+  .hero .lead { font-size: 1.1rem !important; }
+}
+

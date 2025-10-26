@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>受験申し込み｜算命学鑑定士検定</title>
+  <meta name="description" content="算命学鑑定士検定の受験申し込みページです。お支払い後、運営から受験URLをメールでお送りします。下部に練習問題もあります。">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <!-- 自作CSS（既存のダークテーマ） -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Nav（既存と同系） -->
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-light" href="/">算命学鑑定士検定</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-label="メニューを開く">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="navOffcanvas">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">メニュー</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="閉じる"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto gap-3">
+            <li class="nav-item"><a class="nav-link text-light" href="/">ホーム</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/apply.html" aria-current="page">受験</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/quiz.html">練習問題</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/articles/">解説記事</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero的な見出し -->
+  <header class="py-5">
+    <div class="container text-center">
+      <h1 class="display-6 text-contrast fw-bold mb-2">受験申し込み</h1>
+      <p class="muted mb-0">お支払い完了後、運営が確認の上 <strong>受験URLをメール送付</strong> します（通常は24時間以内）。</p>
+    </div>
+  </header>
+
+  <!-- 受験申込カード -->
+  <main class="pb-5">
+    <div class="container">
+      <div class="row justify-content-center g-4">
+        <div class="col-lg-8">
+          <section class="card p-4 shadow-lg">
+            <h2 class="h4 text-contrast mb-3">お申込み（Stripe決済）</h2>
+            <p class="muted">
+              以下のボタンから決済ページへ進み、<strong>メールアドレス（必須）</strong>と必要事項をご入力ください。
+              決済完了を事務局にて確認したのち、登録いただいたメールアドレス宛に受験用URLをお送りします。
+            </p>
+
+            <!-- ★ Stripe Payment Link：ここを置き換え -->
+            <a class="btn btn-primary btn-lg" href="https://buy.stripe.com/9B68wI4Xi48s0II6Im6Ri00"
+               target="_blank" rel="noopener">
+              受験を申し込む（¥5,980）
+            </a>
+
+            <hr class="my-4">
+
+            <ul class="mb-3">
+              <li>支払い方法：クレジットカード（Stripeを通じて決済いただきます）</li>
+              <li>受験URLの有効期間：発行から<strong>2週間</strong></li>
+            </ul>
+            <p class="small muted mb-0">
+              ※ 24時間経ってもメールが届かない場合は、
+              <a href="mailto:support@example.com">uranai.kentei@gmail.com</a> までご連絡ください。
+            </p>
+          </section>
+        </div>
+
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="/quiz.html" class="btn btn-primary btn-lg">練習問題を試してみる</a>
+            <!--<a href="#about" class="btn btn-outline-light btn-lg">受験案内を見る</a>-->
+         </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('copyYear').textContent = new Date().getFullYear();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

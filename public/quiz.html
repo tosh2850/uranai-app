@@ -3,30 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>算命学鑑定士検定ベータ版クイズ</title>
-  <meta name="description" content="算命学の基礎クイズ（ベータ）。40問からランダムに10問を出題。" />
-  <!-- Bootstrap 5 -->
+  <title>算命学鑑定士検定ー練習問題</title>
+  <meta name="description" content="算命学の基礎と応用を2問でクイック体験。回答後にやさしい解説付き。" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <!-- 自作CSS -->
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* このページの見やすさ微調整（既存ダークに馴染ませる） */
+    .page-wrap { padding-block: 24px 48px; }
+    .qa-card { background: rgba(18,25,56,0.95); border: 1px solid rgba(255,255,255,.12); }
+    .qa-card h3, .qa-card h4, .qa-card .text-contrast { color: #fff !important; }
+    .qa-card .muted { color: #b8c1ec !important; }
+    .choice input { cursor: pointer; }
+    .badge-q { background: #6c7bff; }
+    .correct { color: #78e08f; font-weight: 700; }
+    .wrong   { color: #ff7b7b; font-weight: 700; }
+    .answer-chip { display:inline-block; padding:.2rem .5rem; border-radius:.4rem; background: rgba(108,123,255,.15); border:1px solid rgba(108,123,255,.45); }
+    .explain-card { background: #11152c; border: 1px solid rgba(255,255,255,.12); }
+  </style>
 </head>
 <body>
-  <!-- Nav -->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
+  <!-- Nav（既存と同等） -->
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
     <div class="container">
       <a class="navbar-brand fw-bold text-light" href="/">算命学鑑定士検定</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-label="メニューを開く">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="navOffcanvas" aria-labelledby="offcanvasLabel">
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="navOffcanvas">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasLabel">メニュー</h5>
+          <h5 class="offcanvas-title">メニュー</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="閉じる"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav ms-auto gap-3">
             <li class="nav-item"><a class="nav-link text-light" href="/">ホーム</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="/quiz.html" aria-current="page">受験</a></li>
+            <li class="nav-item"><a class="nav-link text-light active" aria-current="page" href="/quiz.html">練習問題</a></li>
             <li class="nav-item"><a class="nav-link text-light" href="/articles/">解説記事</a></li>
           </ul>
         </div>
@@ -34,95 +45,184 @@
     </div>
   </nav>
 
-  <!-- 注意ページ -->
-  <section class="py-4" id="noticeSection">
+  <main class="page-wrap">
     <div class="container">
-      <div class="card p-4">
-        <h2 class="h4 mb-3 text-contrast">受験上の注意</h2>
-        <ul class="mb-3 text-contrast">
-          <li>全問4択。40問からランダムに10問を出題します。</li>
-          <li>採点後に「自分の解答・正解・解説」が表示されます。</li>
-        </ul>
-        <button id="toQuizBtn" class="btn btn-primary">受験へ</button>
+      <div class="text-center mb-4">
+        <h1 class="h3 text-contrast mb-2">算命学鑑定士検定（練習問題）</h1>
+        <p class="muted mb-0">実際の試験問題に合わせた練習問題で、まずはサクッと腕試し。答え合わせ後にていねいな解説が開きます。</p>
       </div>
-    </div>
-  </section>
 
-  <!-- Quiz Section -->
-  <section class="pb-5 d-none" id="quizSection">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-
-          <div class="card p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <span class="muted small">問題</span>
-                <span class="h5 mb-0" id="progressLabel">1 / 10</span>
-              </div>
-              <div class="text-end">
-                <span class="small muted">スコア</span>
-                <div class="h5 mb-0" id="scoreLabel">0 点</div>
-              </div>
+      <!-- 問題エリア（2問） -->
+      <div class="row g-4">
+        <!-- Q1 -->
+        <div class="col-lg-6">
+          <div class="card qa-card p-4 h-100">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge badge-q">Q1</span>
+              <span class="small muted">【基礎レベル】算命学の基本を知ろう</span>
             </div>
+            <p class="mb-3 text-contrast">
+              算命学は、古代中国に発祥した運命学で、生年月日から割り出される干支を用いて人の運命や性格を分析します。算命学の基礎となっているのは「陰陽五行思想」です。<br>
+              算命学では、人間の性格を表す「十大主星」と、現実世界のエネルギーを表す「十二大従星」という2種類の星を使って分析を行います。また、12年に1度訪れる「天中殺」という特殊な時期があり、この2年間は大きな決断を避け、内省や学びの期間として過ごすのが良いとされています。
+            </p>
+            <h3 class="h5 text-contrast">設問</h3>
+            <p class="mb-2 text-contrast">算命学に関する次の記述A〜Dについて、正しいものの組み合わせとして最も適切なものを、下の①〜④のうちから一つ選べ。</p>
+            <ul class="mb-3">
+              <li class="muted">A 算命学は陰陽五行思想を土台とした運命学である</li>
+              <li class="muted">B 十大主星は肉体の強さを表し、十二大従星は精神世界を表す</li>
+              <li class="muted">C 天中殺は全ての人に12年に1度、2年間訪れる</li>
+              <li class="muted">D 五行とは、木・火・土・金・水の5つの要素を指す</li>
+            </ul>
 
-            <div class="progress mb-3" role="progressbar" aria-label="進捗">
-              <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            <div id="q1" class="list-group">
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q1" value="1"> ① A・B・C・D全て正
+              </label>
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q1" value="2"> ② A・C・Dのみ正
+              </label>
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q1" value="3"> ③ A・Dのみ正
+              </label>
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q1" value="4"> ④ Dのみ正
+              </label>
             </div>
-
-            <h2 class="h5 text-question" id="questionText">読み込み中...</h2>
-            <div id="choices" class="list-group my-3"></div>
-
-            <div class="d-flex justify-content-between align-items-center">
-              <button id="prevBtn" class="btn btn-outline-light" disabled>戻る</button>
-              <div class="d-flex gap-2">
-                <button id="resetBtn" class="btn btn-outline-light">最初から</button>
-                <button id="nextBtn" class="btn btn-primary">次へ</button>
-              </div>
-            </div>
+            <div class="mt-3 small" id="q1Mark"></div>
           </div>
+        </div>
 
-          <!-- 結果 -->
-          <div class="card p-4 mt-4 d-none" id="resultCard">
-            <h3 class="h4 mb-2 text-contrast">結果</h3>
-            <p class="muted mb-2">あなたのスコア：<span class="h5" id="finalScore">0</span> / <span id="totalQuestions">10</span></p>
-            <p class="mb-3 text-contrast" id="gradeText">判定：-</p>
-
-            <details class="mt-2">
-              <summary class="text-contrast">自分の解答・正解・解説を見る</summary>
-              <div id="reviewArea" class="mt-3"></div>
-            </details>
-
-            <div class="border-top pt-3 mt-3">
-              <h4 class="h5 mb-2 text-contrast">本番公開のお知らせを受け取る</h4>
-              <form id="subForm" class="row g-2" novalidate>
-                <div class="col-sm-8">
-                  <input type="email" class="form-control" id="subEmail" placeholder="you@example.com" required />
-                </div>
-                <div class="col-sm-4 d-grid">
-                  <button type="submit" class="btn btn-primary" id="subBtn">メール登録</button>
-                </div>
-                <div class="col-12">
-                  <small id="subMsg" class="text-muted"></small>
-                </div>
-              </form>
+        <!-- Q2 -->
+        <div class="col-lg-6">
+          <div class="card qa-card p-4 h-100">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge badge-q">Q2</span>
+              <span class="small muted">【中級レベル】算命学を使ってみよう</span>
             </div>
-
-            <div class="d-flex flex-wrap gap-2 mt-3">
-              <a id="shareTwitter" target="_blank" rel="noopener" class="btn btn-outline-light">X(Twitter)で共有</a>
-              <button id="copyLink" class="btn btn-outline-light">結果リンクをコピー</button>
-              <button id="retryBtn" class="btn btn-primary">もう一度受験</button>
+            <div class="mb-3">
+              <p class="mb-1 text-contrast"><strong>【相談ケース】</strong></p>
+              <p class="muted mb-2">相談者Aさんは自分の性格について知りたいと相談に来ました。</p>
+              <ul class="mb-2">
+                <li class="muted"><strong>Aさんの命式情報：</strong> 中央の星（本人の本質）：貫索星</li>
+              </ul>
+              <p class="muted mb-0"><strong>星の特徴：</strong> 貫索星…自我が強く独立心旺盛。頑固で自分の意志を貫くタイプ。一人で黙々と取り組むことを好む。</p>
             </div>
+            <h3 class="h5 text-contrast">設問</h3>
+            <p class="mb-2 text-contrast">貫索星を持つAさんの性格や行動の特徴として、最も適切でないものを次の①〜④のうちから一つ選べ。</p>
 
+            <div id="q2" class="list-group">
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q2" value="1"> ① 自分の考えをしっかり持ち、他人に流されない
+              </label>
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q2" value="2"> ② 独立心が強く、一人で物事を進めることを好む
+              </label>
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q2" value="3"> ③ 協調性が高く常にグループを優先し、自分の意見を持たない
+              </label>
+              <label class="list-group-item d-flex align-items-center gap-2 choice">
+                <input type="radio" name="q2" value="4"> ④ 頑固で、一度決めたことはなかなか変えない
+              </label>
+            </div>
+            <div class="mt-3 small" id="q2Mark"></div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- スクリプト（自作→Bootstrapの順でOK） -->
-  <script src="quiz.js"></script>
-  <script src="app.js"></script>
+      <!-- 操作 -->
+      <div class="text-center my-4">
+        <button id="checkBtn" class="btn btn-primary btn-lg">答え合わせ</button>
+      </div>
+
+      <!-- 解答・解説（2件分を順番に表示） -->
+      <section id="explainSection" class="d-none">
+        <!-- 解説 1 -->
+        <div class="card explain-card p-4 mb-4">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h3 class="h5 text-contrast mb-0">【基礎レベル】解答・解説</h3>
+            <span class="answer-chip">正解：<strong>②</strong>（A・C・Dのみ正）</span>
+          </div>
+          <div class="prose">
+            <p class="text-contrast"><strong>A：正しい</strong><br>
+              算命学は古代中国の陰陽五行思想を土台とした運命学です。陰陽五行は、陰と陽の二元論と、木・火・土・金・水の五行から成り立つ思想で、算命学のすべての理論の基礎となっています。</p>
+            <p class="text-contrast"><strong>B：誤り</strong><br>
+              十大主星は<strong>精神世界や性格</strong>を表し、十二大従星は<strong>現実世界のエネルギーや行動パターン</strong>を表します。記述が逆になっているため誤りです。</p>
+            <p class="text-contrast"><strong>C：正しい</strong><br>
+              天中殺は全ての人に12年に1度、連続した2年間訪れる周期的な時期です。この期間は大きな決断（結婚・転職・起業など）を避け、内省や学びの時期として過ごすのが無難とされています。</p>
+            <p class="text-contrast"><strong>D：正しい</strong><br>
+              五行とは木・火・土・金・水の5つの要素を指します。これらは互いに「相生」（生み出す関係）と「相剋」（抑制する関係）で影響し合います。</p>
+          </div>
+        </div>
+
+        <!-- 解説 2 -->
+        <div class="card explain-card p-4">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h3 class="h5 text-contrast mb-0">【中級レベル】解答・解説</h3>
+            <span class="answer-chip">正解：<strong>③</strong></span>
+          </div>
+          <div class="prose">
+            <p class="text-contrast"><strong>③が正解（最も適切でない）の理由：</strong><br>
+              貫索星は<strong>守備本能</strong>に属する星で、「自我が強く独立心旺盛」という特徴を持ちます。選択肢③の「協調性が高く、常にグループ活動を優先し、自分の意見を持たない」は、貫索星とは<strong>正反対の性質</strong>です。</p>
+            <ul class="text-contrast">
+              <li>自分の意見をはっきり持つ</li>
+              <li><strong>独立心が強い</strong>ため他人に依存しない</li>
+              <li>グループより<strong>個人での活動</strong>を好む傾向</li>
+            </ul>
+            <p class="text-contrast mb-1"><strong>他の選択肢について：</strong></p>
+            <p class="text-contrast">①：正しい／②：正しい／④：正しい（意志の強さの表れ）。<br>
+              参考：協調性があり集団をまとめる力を持つのは<strong>石門星</strong>（貫索星と同じ守備本能の陰の星）。同じ本能でも陰陽で性質が異なるのがポイントです。</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+
+  <!-- 動作スクリプト（このページだけで完結） -->
+  <script>
+    // 正解（文字の番号で統一）
+    const ANSWERS = { q1: "2", q2: "3" };
+
+    function getValue(name) {
+      const el = document.querySelector('input[name="'+name+'"]:checked');
+      return el ? el.value : null;
+    }
+
+    function mark(name, isCorrect, chosen) {
+      const el = document.getElementById(name + 'Mark');
+      if (!chosen) {
+        el.innerHTML = '<span class="wrong">未選択です</span>';
+        return false;
+      }
+      if (isCorrect) {
+        el.innerHTML = '<span class="correct">正解！</span>';
+      } else {
+        el.innerHTML = '<span class="wrong">不正解</span>（あなたの選択：' + chosen + '）';
+      }
+      return isCorrect;
+    }
+
+    document.getElementById('checkBtn').addEventListener('click', () => {
+      const v1 = getValue('q1');
+      const v2 = getValue('q2');
+
+      const ok1 = mark('q1', v1 === ANSWERS.q1, v1);
+      const ok2 = mark('q2', v2 === ANSWERS.q2, v2);
+
+      // 解説を展開
+      const sec = document.getElementById('explainSection');
+      sec.classList.remove('d-none');
+
+      // 解説へスクロール（1つでも回答されていれば）
+      if (v1 || v2) {
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    // コピーライト年
+    document.getElementById('copyYear').textContent = new Date().getFullYear();
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
