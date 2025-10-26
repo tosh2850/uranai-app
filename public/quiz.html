@@ -178,49 +178,7 @@
   </main>
 
 
-  <!-- 動作スクリプト（このページだけで完結） -->
-  <script>
-    // 正解（文字の番号で統一）
-    const ANSWERS = { q1: "2", q2: "3" };
-
-    function getValue(name) {
-      const el = document.querySelector('input[name="'+name+'"]:checked');
-      return el ? el.value : null;
-    }
-
-    function mark(name, isCorrect, chosen) {
-      const el = document.getElementById(name + 'Mark');
-      if (!chosen) {
-        el.innerHTML = '<span class="wrong">未選択です</span>';
-        return false;
-      }
-      if (isCorrect) {
-        el.innerHTML = '<span class="correct">正解！</span>';
-      } else {
-        el.innerHTML = '<span class="wrong">不正解</span>（あなたの選択：' + chosen + '）';
-      }
-      return isCorrect;
-    }
-
-    document.getElementById('checkBtn').addEventListener('click', () => {
-      const v1 = getValue('q1');
-      const v2 = getValue('q2');
-
-      const ok1 = mark('q1', v1 === ANSWERS.q1, v1);
-      const ok2 = mark('q2', v2 === ANSWERS.q2, v2);
-
-      // 解説を展開
-      const sec = document.getElementById('explainSection');
-      sec.classList.remove('d-none');
-
-      // 解説へスクロール（1つでも回答されていれば）
-      if (v1 || v2) {
-        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-
-
-  </script>
+  <script src="/practice-quiz.js" defer></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
