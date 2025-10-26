@@ -388,3 +388,35 @@ body.article-page .breadcrumb {
   .hero .lead { font-size: 1.1rem !important; }
 }
 
+/* ==== ダーク前提の文字色を全体に適用（Bootstrap 5.3 変数の上書き） ==== */
+:root{
+  /* 本文色（ライトグレー寄りの白） */
+  --bs-body-color: #e9eefb;
+  --bs-body-color-rgb: 233,238,251;
+
+  /* 見出し色（純白） */
+  --bs-heading-color: #ffffff;
+
+  /* 「薄い文字」系ユーティリティの基準色（読みやすい淡い白） */
+  --bs-secondary-color: #b8c1ec;
+  --bs-secondary-color-rgb: 184,193,236;
+}
+
+/* Bootstrap のユーティリティをダーク向けに補正 */
+.text-muted,
+.text-body-secondary,
+.link-secondary { color: var(--bs-secondary-color) !important; }
+
+/* Bootstrap が自動で付けがちな .text-dark をダーク面では上書き */
+.on-dark .text-dark { color: var(--bs-body-color) !important; }
+
+/* 「この検定は、こんな方におすすめです」などの暗背景ブロック用 */
+.recommend { color:#eef2ff; }
+.recommend p,
+.recommend li,
+.recommend small { color:#dbe2ff; }
+.recommend strong,
+.recommend h3, .recommend h4 { color:#ffffff; }
+
+/* バッジや数字も沈まないよう微調整 */
+.recommend .badge { background:#6c7bff !important; color:#ffffff !important; }
