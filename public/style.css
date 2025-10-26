@@ -420,3 +420,46 @@ body.article-page .breadcrumb {
 
 /* バッジや数字も沈まないよう微調整 */
 .recommend .badge { background:#6c7bff !important; color:#ffffff !important; }
+
+/* ==== Footer: Compact & Low-ink ==== */
+.site-footer {
+  margin-top: 32px;                 /* 高さを控えめに */
+  padding: 8px 0;                   /* 16px → 8px */
+  background: transparent;          /* 白→透明（ページのダークと馴染ませる） */
+  border-top: 1px solid rgba(255,255,255,.06); /* 目立たない細い線 */
+}
+
+.site-footer__inner {
+  max-width: 880px;                 /* 幅も少しだけ狭く */
+  margin: 0 auto;
+  padding: 0 12px;                  /* 左右余白も軽く */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;                    /* 行間も控えめ */
+  justify-content: space-between;
+}
+
+/* リンクを淡く（ホバー時のみはっきり） */
+.site-footer__links a {
+  color: #9aa3c9 !important;        /* 淡い青グレー */
+  font-size: 11px;                  /* 12pxのままでもOK。さらに下げるなら 11px */
+  text-decoration: none;
+  opacity: .85;
+}
+.site-footer__links a:hover { color: #cbd3ff !important; opacity: 1; }
+
+/* セパレータも淡く小さく */
+.site-footer__links span { color: #7e86a8; font-size: 10px; margin: 0 3px; }
+
+/* コピーも控えめ */
+.site-footer__copy { color: #7e86a8; font-size: 10px; }
+
+/* モバイルはさらに圧縮 */
+@media (max-width: 576px) {
+  .site-footer { padding: 6px 0; }
+  .site-footer__links a { font-size: 11px; }
+  .site-footer__links { display: flex; flex-wrap: wrap; gap: 6px 10px; }
+  .site-footer__links span { display: none; } /* 点区切りを隠して省スペース */
+}
+
